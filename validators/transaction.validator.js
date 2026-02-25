@@ -7,3 +7,4 @@ export const transactionSchema = z.object({
   description: z.string(),
   date: z.string(),
 });
+
