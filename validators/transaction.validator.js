@@ -6,5 +6,4 @@ export const transactionSchema = z.object({
   category: z.string(),
   description: z.string(),
   date: z.string(),
-  userId: z.string(),
 });
