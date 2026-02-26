@@ -8,6 +8,7 @@ export const createTransaction = async (req, res, next) => {
     const transaction = await prisma.transaction.create({
       data: {
         ...data,
+        userId: req.user.userId,
         date: new Date(data.date),
       },
     });
@@ -62,10 +63,13 @@ export const getTransactions = async (req, res, next) => {
 export const updateTransaction = async (req, res, next) => {
   try {
     const { id } = req.params;
-
+    const data = transactionSchema.partial().parse(req.body);
     const updated = await prisma.transaction.update({
-      where: { id },
-      data: req.body,
+      where: { id, userId: req.user.userId },
+      data: {
+        ...data,
+        date: data.date ? new Date(data.date) : undefined,
+      },
     });
 
     res.json(updated);
@@ -79,7 +83,7 @@ export const deleteTransaction = async (req, res, next) => {
     const { id } = req.params;
 
     await prisma.transaction.delete({
-      where: { id },
+      where: { id, userId: req.user.userId },
     });
 
     res.json({ message: "Transaction deleted" });
