@@ -2,18 +2,28 @@ import prisma from "../utils/prisma.js";
 
 export const getSummary = async (req, res, next) => {
   try {
+    const userId = req.user.userId; 
     const income = await prisma.transaction.aggregate({
       _sum: { amount: true },
-      where: { type: "income" },
+      where: {
+        type: "income",
+        userId: userId,
+      },
     });
 
     const expense = await prisma.transaction.aggregate({
       _sum: { amount: true },
-      where: { type: "expense" },
+      where: {
+        type: "expense",
+        userId: userId,
+      },
     });
 
     const grouped = await prisma.transaction.groupBy({
       by: ["category"],
+      where: {
+        userId: userId,
+      },
       _sum: { amount: true },
     });
 
