@@ -29,7 +29,7 @@ The Backend API is deployed and ready for testing:
 
 ### 1. Clone the repository
 ```bash
-git clone [https://github.com/EphriamHab/finance-tracker-backend.git](https://github.com/EphriamHab/finance-tracker-backend.git)
+git clone https://github.com/EphriamHab/finance-tracker-backend.git
 cd finance-tracker-backend
 ```
 ## 2. Install Dependencies
