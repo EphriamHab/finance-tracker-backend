@@ -55,7 +55,7 @@ npm run dev
 ## Run with Docker
 
 ```bash
-docker-compose up --build .
+docker compose up --build .
 docker run -p 5000:5000 finance_backend
 ```
 
