@@ -20,7 +20,7 @@ export const getSummary = async (req, res, next) => {
     });
 
     const grouped = await prisma.transaction.groupBy({
-      by: ["category"],
+      by: ["category", "type"],
       where: {
         userId: userId,
       },
