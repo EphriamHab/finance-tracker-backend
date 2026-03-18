@@ -91,3 +91,19 @@ export const deleteTransaction = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getTransaction = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const transaction = await prisma.transaction.findFirst({
+      where: { id, userId: req.user.userId },
+    });
+
+    if (!transaction)
+      return res.status(404).json({ message: "Transaction not found" });
+
+    res.json(transaction);
+  } catch (error) {
+    next(error);
+  }
+};

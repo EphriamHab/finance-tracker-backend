@@ -30,9 +30,13 @@ export const getCurrentUser = async (req, res, next) => {
 export const getUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        transactions: {
+          orderBy: { date: "desc" },
+        },
+      }
     });
 
     if (!user) {
